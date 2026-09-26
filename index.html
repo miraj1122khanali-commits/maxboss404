@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>𝑴𝑬𝑯𝑬𝑫𝑰 𝑯𝑨𝑺𝑨𝑵 𝑺𝑯𝑨𝑾𝑶𝑵</title>
+<style> 
+ @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Rajdhani:wght@600;700&display=swap'); 
+ 
+ body, html { 
+   margin: 0; 
+   padding: 0; 
+   height: 100%; 
+   overflow: hidden; 
+   font-family: 'Orbitron', sans-serif; 
+   background: #000; 
+ } 
+ 
+ #bg-frame { 
+   position: absolute; 
+   top: 0; 
+   left: 0; 
+   width: 100%; 
+   height: 100%; 
+   border: none; 
+   z-index: 0; 
+   background: #000; 
+ } 
+
+ #ui-wrapper {
+   position: absolute;
+   top: 130px;
+   left: 25px;
+   z-index: 9999;
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+   touch-action: none;
+ }
+ 
+ .mode-selector { 
+   display: flex; 
+   gap: 8px; 
+   z-index: 10; 
+ } 
+ 
+ .mode-btn { 
+   background: #1c1c1c; 
+   border: 1.5px solid #3c3c3c; 
+   color: #777; 
+   padding: 5px 18px; 
+   font-size: 12px; 
+   font-weight: 900; 
+   border-radius: 30px; 
+   cursor: pointer; 
+   font-family: 'Orbitron'; 
+   transition: all 0.3s ease; 
+   text-align: center; 
+ } 
+ 
+ .mode-btn.active { 
+   border-color: #00ffcc; 
+   color: #00ffcc; 
+   box-shadow: 0 0 8px #00ffcc;
+   background: #0d0d0d;
+ } 
+ 
+ #widget-container { 
+   width: 195px; 
+   height: 290px; 
+   display: flex; 
+   flex-direction: column; 
+   padding: 3.5px; 
+   border-radius: 24px; 
+   background: linear-gradient(120deg, #ff0055, #00ffcc, #002bff, #ff9900, #ff0055); 
+   background-size: 300% 300%;
+   animation: borderColors 6s ease infinite;
+   box-shadow: 0 8px 30px rgba(0,0,0,0.8); 
+ } 
+
+ @keyframes borderColors {
+   0% { background-position: 0% 50%; }
+   50% { background-position: 100% 50%; }
+   100% { background-position: 0% 50%; }
+ }
+ 
+ .inner-content { 
+   width: 100%; 
+   height: 100%; 
+   background: transparent; 
+   border-radius: 21px; 
+   display: flex; 
+   flex-direction: column; 
+   align-items: center; 
+   justify-content: space-around; 
+   padding: 10px; 
+   box-sizing: border-box; 
+   position: relative; 
+   overflow: hidden; 
+ } 
+ 
+ #panel-video { 
+   position: absolute; 
+   top: 0; 
+   left: 0; 
+   width: 100%; 
+   height: 100%; 
+   object-fit: cover; 
+   z-index: 1; 
+   pointer-events: none; 
+ } 
+ 
+ #login-page { 
+   position: absolute; 
+   width: 100%; 
+   height: 100%; 
+   display: flex; 
+   flex-direction: column; 
+   align-items: center; 
+   justify-content: center; 
+   z-index: 100; 
+   top: 0; 
+   left: 0; 
+   padding: 12px; 
+   box-sizing: border-box; 
+ } 
+ 
+ #login-page input { 
+   width: 88%; 
+   padding: 8px; 
+   margin-bottom: 15px; 
+   border-radius: 10px; 
+   border: 2px solid #ff00ff; 
+   background: rgba(0, 0, 0, 0.6); 
+   color: #fff; 
+   text-align: center; 
+   font-family: 'Orbitron'; 
+   outline: none; 
+   font-size: 11px; 
+   letter-spacing: 1px; 
+   box-shadow: 0 0 8px rgba(255, 0, 255, 0.4); 
+   z-index: 102; 
+ } 
+ 
+ #login-page button { 
+   background: #ffbc00; 
+   border: none; 
+   padding: 8px 24px; 
+   border-radius: 25px; 
+   font-weight: 900; 
+   font-family: 'Orbitron'; 
+   cursor: pointer; 
+   color: #000; 
+   font-size: 11px; 
+   text-transform: uppercase; 
+   box-shadow: 0 4px 12px rgba(255, 188, 0, 0.4); 
+   transition: 0.2s ease; 
+   z-index: 102; 
+ } 
+ 
+ #login-page button:hover { 
+   transform: scale(1.03); 
+ } 
+ 
+ #hack-widget { 
+   width: 100%; 
+   height: 100%; 
+   display: none; 
+   flex-direction: column; 
+   align-items: center; 
+   justify-content: space-around; 
+   position: relative; 
+   z-index: 5; 
+ } 
+ 
+ .user-title { 
+   color: #FFD700; 
+   font-size: 11px; 
+   font-weight: 900; 
+   letter-spacing: 0.5px; 
+   text-align: center; 
+   font-family: 'Rajdhani', sans-serif; 
+   text-shadow: 0 0 8px #FFD700; 
+   margin-top: 3px; 
+ } 
+ 
+ .period-box { 
+   font-size: 10px; 
+   color: #aaa; 
+   font-family: 'Orbitron'; 
+   background: rgba(0,0,0,0.6); 
+   padding: 4px 8px; 
+   border-radius: 6px; 
+ } 
+ 
+ .period-box span { 
+   color: #fff; 
+   font-weight: bold; 
+ } 
+ 
+ .signal-text { 
+   font-size: 26px; 
+   font-weight: 900; 
+   text-transform: uppercase; 
+   text-align: center; 
+   animation: floating 2s ease-in-out infinite; 
+ } 
+ 
+ .number-box { 
+   font-size: 38px; 
+   font-weight: 900; 
+   font-family: 'Rajdhani'; 
+   transition: all 0.5s ease;
+ } 
+ 
+ @keyframes floating { 
+   0%, 100% { transform: translateY(0px); } 
+   50% { transform: translateY(-3px); } 
+ } 
+ 
+ .timer-circle { 
+   width: 44px; 
+   height: 44px; 
+   border: 2.5px solid #ff0000; 
+   border-radius: 50%; 
+   display: flex; 
+   align-items: center; 
+   justify-content: center; 
+   color: #fff; 
+   font-weight: 900; 
+   font-size: 16px; 
+   background: rgba(0,0,0,0.7); 
+ } 
+ 
+ #error-overlay { 
+   position: absolute; 
+   top: 0; 
+   left: 0; 
+   width: 100%; 
+   height: 100%; 
+   background: #1a0000; 
+   display: none; 
+   z-index: 150; 
+   color: #ff3333; 
+   font-size: 9px; 
+   padding: 15px; 
+   box-sizing: border-box; 
+   text-align: center;
+ } 
+ 
+ .crash-effect { 
+   animation: shake 0.15s infinite !important; 
+ } 
+ 
+ @keyframes shake { 
+   0% { transform: translate(1px, 1px); } 
+   50% { transform: translate(-1px, -1px); } 
+   100% { transform: translate(1px, -1px); } 
+ } 
+</style>
+</head>
+<body>
+
+<!-- নতুন সাইড লিংক এখানে আপডেট করা হয়েছে -->
+<iframe id="bg-frame" 
+        src="https://hgnice.bet/#/register?invitationCode=142122068053" 
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals" 
+        referrerpolicy="no-referrer">
+</iframe>
+
+<div id="ui-wrapper">
+  <div class="mode-selector">
+    <div id="btn-30s" class="mode-btn active" onclick="changeMode('30s')">30 Sec</div>
+    <div id="btn-1m" class="mode-btn" onclick="changeMode('1m')">1 Min</div>
+  </div>
+  
+  <div id="widget-container">
+    <div class="inner-content">
+      <video id="panel-video" autoplay loop muted playsinline preload="auto">
+        <source src="https://files.catbox.moe/2fkmx9.mp4" type="video/mp4">
+      </video>
+      
+      <div id="login-page">
+        <p id="status-text" style="color:#FFD700; font-size:10px; margin-bottom:12px; font-weight:bold; text-shadow: 0 0 8px #ff7300; text-align: center;"> 
+          𝑴𝑬𝑯𝑬𝑫𝑰 𝑯𝑨𝑺𝑨𝑵 𝑺𝑯𝑨𝑾𝑶𝑵
+        </p>
+        <input type="password" id="pass" placeholder="PASSWORD" />
+        <button onclick="checkLogin()">CONNECT</button>
+      </div>
+      
+      <div id="hack-widget">
+        <div class="user-title">𝑴𝑬𝑯𝑬𝑫𝑰 𝑯𝑨𝑺𝑨𝑵 𝑺𝑯𝑨𝑾𝑶𝑵</div>
+        <div class="period-box">ID: <span id="period-display">Loading...</span></div>
+        <div id="signal" class="signal-text">WAIT</div>
+        <div class="number-box" id="num-display">-</div>
+        <div class="timer-circle" id="timer">--</div>
+      </div>
+      
+      <div id="error-overlay">
+        <h2>[!] FATAL_ERROR</h2>
+        <p>ACCESS TERMINATED BY SERVER.</p>
+        <p>RE-DIRECTING...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script> 
+ const wrapper = document.getElementById("ui-wrapper"); 
+ const loginPage = document.getElementById("login-page"); 
+ const hackWidget = document.getElementById("hack-widget"); 
+ const statusText = document.getElementById("status-text"); 
+ const errorOverlay = document.getElementById("error-overlay"); 
+ const periodDisplay = document.getElementById("period-display"); 
+ const sig = document.getElementById("signal"); 
+ const numDisp = document.getElementById("num-display"); 
+ const timerCircle = document.getElementById("timer"); 
+ 
+ let currentMode = '30s'; 
+ const PATTERN_SEED = [ 
+   {s: "BIG", n: 7}, {s: "SMALL", n: 2}, {s: "SMALL", n: 4}, 
+   {s: "BIG", n: 9}, {s: "BIG", n: 6}, {s: "SMALL", n: 0}, 
+   {s: "BIG", n: 8}, {s: "SMALL", n: 3}, {s: "SMALL", n: 1}, 
+   {s: "BIG", n: 5}, {s: "BIG", n: 7}, {s: "SMALL", n: 4} 
+ ]; 
+ 
+ function generateHGZYPeriod() { 
+   const now = new Date(); 
+   const baseTimeUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0); 
+   const diffSeconds = Math.floor((Date.now() - baseTimeUTC) / 1000); 
+   const interval = currentMode === '30s' ? 30 : 60; 
+   const periodIndex = Math.floor(diffSeconds / interval) + 1; 
+   const yyyy = now.getUTCFullYear(); 
+   const mm = String(now.getUTCMonth() + 1).padStart(2, "0"); 
+   const dd = String(now.getUTCDate()).padStart(2, "0"); 
+   const datePart = `${yyyy}${mm}${dd}`; 
+   const periodId = datePart + String(periodIndex).padStart(5, "0"); 
+   const secondsLeft = interval - (diffSeconds % interval); 
+   return { id: periodId, index: periodIndex, timeLeft: secondsLeft }; 
+ } 
+ 
+ function changeMode(mode) { 
+   if (currentMode === mode) return; 
+   currentMode = mode; 
+   document.getElementById('btn-30s').classList.remove('active'); 
+   document.getElementById('btn-1m').classList.remove('active'); 
+   if(mode === '30s') { 
+     document.getElementById('btn-30s').classList.add('active'); 
+   } else { 
+     document.getElementById('btn-1m').classList.add('active'); 
+   } 
+   update(true); 
+ } 
+ 
+ function checkLogin() { 
+   if (document.getElementById("pass").value === "BOSS404") { 
+     loginPage.style.display = "none"; 
+     hackWidget.style.display = "flex"; 
+     update(); 
+     const vid = document.getElementById("panel-video"); 
+     if(vid) vid.play().catch(e => console.log("Video auto-play bypass")); 
+   } else { 
+     statusText.innerText = "ACCESS DENIED!"; 
+     statusText.style.color = "red"; 
+     statusText.style.textShadow = "0 0 10px red"; 
+     wrapper.classList.add("crash-effect"); 
+     setTimeout(() => { 
+       errorOverlay.style.display = "block"; 
+       setTimeout(() => { 
+         // নতুন টেলিগ্রাম চ্যানেল লিংক এখানে আপডেট করা হয়েছে
+         window.location.href = "https://t.me/+-gOfsmtIcG03MDA1"; 
+       }, 2000); 
+     }, 1000); 
+   } 
+ } 
+ 
+ let isDragging = false; 
+ let offset = { x: 0, y: 0 }; 
+ 
+ const start = (e) => { 
+   if(e.target.classList.contains('mode-btn') || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return; 
+   isDragging = true; 
+   const c = e.type.includes('touch') ? e.touches[0] : e; 
+   offset.x = c.clientX - wrapper.offsetLeft; 
+   offset.y = c.clientY - wrapper.offsetTop; 
+   wrapper.style.transition = "none"; 
+ }; 
+ 
+ const move = (e) => { 
+   if (!isDragging) return; 
+   e.preventDefault(); 
+   const c = e.type.includes('touch') ? e.touches[0] : e; 
+   let x = c.clientX - offset.x; 
+   let y = c.clientY - offset.y; 
+   x = Math.max(0, Math.min(x, window.innerWidth - wrapper.offsetWidth)); 
+   y = Math.max(0, Math.min(y, window.innerHeight - wrapper.offsetHeight)); 
+   wrapper.style.left = x + "px"; 
+   wrapper.style.top = y + "px"; 
+ }; 
+ 
+ const stop = () => { 
+   isDragging = false; 
+ }; 
+ 
+ wrapper.addEventListener("mousedown", start); 
+ window.addEventListener("mousemove", move); 
+ window.addEventListener("mouseup", stop); 
+ wrapper.addEventListener("touchstart", start, {passive: false}); 
+ window.addEventListener("touchmove", move, {passive: false}); 
+ window.addEventListener("touchend", stop); 
+ 
+ function update(modeChanged = false) { 
+   const p = generateHGZYPeriod(); 
+   if (periodDisplay.innerText !== p.id || modeChanged) { 
+     periodDisplay.innerText = p.id; 
+   } 
+   if (!sig || !numDisp || !timerCircle) return; 
+   timerCircle.innerText = p.timeLeft; 
+   const modeOffset = currentMode === '30s' ? 0 : 5; 
+   const patternIndex = (p.index + modeOffset) % PATTERN_SEED.length; 
+   const prediction = PATTERN_SEED[patternIndex]; 
+   
+   if (p.timeLeft <= 5) { 
+     sig.innerText = "SYNCING"; 
+     sig.style.color = "#FFD700"; 
+     sig.style.textShadow = "0 0 15px #FFD700, 0 0 25px #ff7300"; 
+     numDisp.innerText = "÷"; 
+     numDisp.style.color = "#FFD700"; 
+     numDisp.style.textShadow = "0 0 15px #FFD700"; 
+     timerCircle.style.borderColor = "#FFD700"; 
+   } else { 
+     sig.innerText = prediction.s; 
+     numDisp.innerText = prediction.n; 
+     
+     if (prediction.s === "BIG") { 
+       sig.style.color = "#00ffff"; 
+       sig.style.textShadow = "0 0 20px #00ffff, 0 0 30px #00ff00"; 
+       numDisp.style.color = "#00ffff"; 
+       numDisp.style.textShadow = "0 0 20px #00ffff, 0 0 30px #00ff00"; 
+       timerCircle.style.borderColor = "#00ffff"; 
+     } else { 
+       sig.style.color = "#ff3300"; 
+       sig.style.textShadow = "0 0 20px #ff3300, 0 0 30px #ff0000"; 
+       numDisp.style.color = "#ff3300"; 
+       numDisp.style.textShadow = "0 0 20px #ff3300, 0 0 30px #ff0000"; 
+       timerCircle.style.borderColor = "#ff3300"; 
+     } 
+   } 
+ } 
+ setInterval(() => update(false), 1000); 
+ update(true); 
+</script>
+</body>
+</html>
